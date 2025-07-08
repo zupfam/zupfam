@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+httpx
+python-dotenv
+SQLAlchemy
+asyncpg
+google-auth
+google-auth-oauthlib
+apscheduler
+jinja2
