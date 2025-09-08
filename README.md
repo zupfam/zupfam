@@ -106,7 +106,7 @@ Built using modern UI/UX principles:
 
 ---
 
-## 🙌 Final Words
+## 🙌 Summing up
 
 ZupFam is more than a tool. It’s a **trust engine** for the next million small businesses of India. If you're reading this, you're part of the early believers.  
 **Let’s build a new wave of digital presence — one counter at a time.**
