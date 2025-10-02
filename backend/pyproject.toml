@@ -10,6 +10,7 @@ dependencies = [
     "cffi==1.17.1",
     "click==8.2.1",
     "cryptography==45.0.7",
+    "dynaconf>=3.2.11",
     "fastapi==0.116.1",
     "fastapi-cache2>=0.2.2",
     "gunicorn>=23.0.0",

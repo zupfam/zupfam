@@ -5,7 +5,14 @@ from typing import Literal
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+from dynaconf import Dynaconf
 
+settings = Dynaconf(
+    envvar_prefix="DYNACONF",
+    settings_files=['settings.toml', '.secrets.toml'],
+)
+
+'''
 class Settings(BaseSettings):
     APP_ENV: Literal["local", "prod"] = "local"
     DATABASE_URL: str
@@ -30,3 +37,4 @@ def load_settings() -> Settings:
 
 
 settings = load_settings()
+'''
