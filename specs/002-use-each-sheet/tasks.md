@@ -13,10 +13,10 @@
 
 ## Phase 3.2: Tests First (TDD) ⚠️ MUST COMPLETE BEFORE 3.3
 **CRITICAL: These tests MUST be written and MUST FAIL before ANY implementation**
-- [ ] T007 [P] Write a failing test in `frontend/src/__tests__/google-sheets.test.ts` to verify fetching data from the "store" sheet.
-- [ ] T008 [P] Write a failing test in `frontend/src/__tests__/google-sheets.test.ts` to verify fetching data from the "dishes" sheet.
-- [ ] T009 [P] Write a failing test in `frontend/src/__tests__/google-sheets.test.ts` to verify fetching data from the "statuses" sheet.
-- [ ] T010 [P] Write a failing test in `frontend/src/__tests__/Dish.test.tsx` to verify that the Dish component renders correctly with mock data.
+- [X] T007 [P] Write a failing test in `frontend/src/__tests__/google-sheets.test.ts` to verify fetching data from the "store" sheet.
+- [X] T008 [P] Write a failing test in `frontend/src/__tests__/google-sheets.test.ts` to verify fetching data from the "dishes" sheet.
+- [X] T009 [P] Write a failing test in `frontend/src/__tests__/google-sheets.test.ts` to verify fetching data from the "statuses" sheet.
+- [X] T010 [P] Write a failing test in `frontend/src/__tests__/Dish.test.tsx` to verify that the Dish component renders correctly with mock data.
 
 ## Phase 3.3: Core Implementation (ONLY after tests are failing)
 - [ ] T011 [P] Create the `frontend/src/models/status.ts` model file.
