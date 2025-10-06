@@ -1,0 +1,5 @@
+id,vendorId,author,rating,comment,language,created_at
+review-1,demo-vendor,"Ananya Sharma",5,"The Aloo Tikki Chaat is the best I've ever had! Perfectly crispy and flavorful.","en","2025-10-05T14:20:00Z"
+review-2,demo-vendor,"Rohan Gupta",4.5,"Great Pani Puri, but it can get a bit crowded during peak hours. Worth the wait though!","en","2025-10-04T19:05:00Z"
+review-3,demo-vendor,"Priya Singh",5,"¡El Samosa Chaat es increíble! Una explosión de sabores. ¡Muy recomendable!","es","2025-10-03T20:00:00Z"
+review-4,demo-vendor,"Amit Patel",5,"बहुत स्वादिष्ट दही भल्ला! नरम और ताज़ा। (Very tasty Dahi Bhalla! Soft and fresh.)","hi","2025-10-02T18:30:00Z"
