@@ -2,15 +2,19 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { Vendor } from '@/models/vendor';
 import { Dish } from '@/models/dish';
-import { getVendorData, getMenuData } from '@/services/google-sheets';
+import { Status } from '@/models/status';
+import { getVendorData, getMenuData, getStatusesData } from '@/services/google-sheets';
 import DishList from '@/components/DishList';
 import Skeleton from '@/components/Skeleton';
+import StatusView from '@/components/StatusView';
+import VendorProfile from '@/components/VendorProfile';
 
 const VendorPage = () => {
   const router = useRouter();
   const { vendorId } = router.query;
   const [vendor, setVendor] = useState<Vendor | null>(null);
   const [menu, setMenu] = useState<Dish[]>([]);
+  const [statuses, setStatuses] = useState<Status[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -18,19 +22,15 @@ const VendorPage = () => {
       Promise.all([
         getVendorData(vendorId as string),
         getMenuData(vendorId as string),
-      ]).then(([vendorData, menuData]) => {
+        getStatusesData(vendorId as string),
+      ]).then(([vendorData, menuData, statusesData]) => {
         setVendor(vendorData);
         setMenu(menuData);
+        setStatuses(statusesData);
         setLoading(false);
       });
     }
   }, [vendorId]);
-
-  const handleContact = () => {
-    if (vendor) {
-      window.open(`https://wa.me/${vendor.whatsapp_number}`);
-    }
-  };
 
   if (loading) {
     return <Skeleton />;
@@ -42,11 +42,10 @@ const VendorPage = () => {
 
   return (
     <div>
-      <h1>{vendor.store_name}</h1>
-      <p>{vendor.location}</p>
-      <p>{vendor.food_category}</p>
-      <p>{vendor.offer_status}</p>
-      <button onClick={handleContact}>Contact Vendor</button>
+      <VendorProfile vendor={vendor} />
+      {statuses.map((status) => (
+        <StatusView key={status.id} status={status} />
+      ))}
       <DishList dishes={menu} />
     </div>
   );

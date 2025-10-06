@@ -19,19 +19,19 @@
 - [X] T010 [P] Write a failing test in `frontend/src/__tests__/Dish.test.tsx` to verify that the Dish component renders correctly with mock data.
 
 ## Phase 3.3: Core Implementation (ONLY after tests are failing)
-- [ ] T011 [P] Create the `frontend/src/models/status.ts` model file.
-- [ ] T012 Implement the `getGoogleSheetData` function in `frontend/src/services/google-sheets.ts` to fetch and parse data from a given sheet.
-- [ ] T013 Implement functions in `frontend/src/services/google-sheets.ts` to get store, dishes, and statuses data, making the tests from T007-T009 pass.
-- [ ] T014 [P] Create the `frontend/src/components/VendorProfile.tsx` component to display store information.
-- [ ] T015 [P] Create the `frontend/src/components/StatusView.tsx` component to display vendor statuses, handling text, video (vertical, looping, unmuted), and GIF types.
-- [ ] T016 Update the `frontend/src/components/Dish.tsx` component to implement the "yumm_count" feature with optimistic updates and micro-animations, making the test from T010 pass.
-- [ ] T017 [P] Update the `frontend/src/components/Dish.tsx` component to display the dish image and video from `image_url` and `video_url`.
-- [ ] T018 Update the `frontend/src/pages/vendor/[vendorId].tsx` page to fetch and display the vendor's store information, dishes, and statuses.
+- [X] T011 [P] Create the `frontend/src/models/status.ts` model file.
+- [X] T012 Implement the `getGoogleSheetData` function in `frontend/src/services/google-sheets.ts` to fetch and parse data from a given sheet.
+- [X] T013 Implement functions in `frontend/src/services/google-sheets.ts` to get store, dishes, and statuses data, making the tests from T007-T009 pass.
+- [X] T014 [P] Create the `frontend/src/components/VendorProfile.tsx` component to display store information.
+- [X] T015 [P] Create the `frontend/src/components/StatusView.tsx` component to display vendor statuses, handling text, video (vertical, looping, unmuted), and GIF types.
+- [X] T016 Update the `frontend/src/components/Dish.tsx` component to implement the "yumm_count" feature with optimistic updates and micro-animations, making the test from T010 pass.
+- [X] T017 [P] Update the `frontend/src/components/Dish.tsx` component to display the dish image and video from `image_url` and `video_url`.
+- [X] T018 Update the `frontend/src/pages/vendor/[vendorId].tsx` page to fetch and display the vendor's store information, dishes, and statuses.
 
 ## Phase 3.4: Integration
-- [ ] T019 Integrate the `VendorProfile.tsx` component into `frontend/src/pages/vendor/[vendorId].tsx`.
-- [ ] T020 Integrate the `StatusView.tsx` component into `frontend/src/pages/vendor/[vendorId].tsx`.
-- [ ] T021 Connect the "yumm_count" functionality in `Dish.tsx` to a state management solution to prevent multiple votes in the same session.
+- [X] T019 Integrate the `VendorProfile.tsx` component into `frontend/src/pages/vendor/[vendorId].tsx`.
+- [X] T020 Integrate the `StatusView.tsx` component into `frontend/src/pages/vendor/[vendorId].tsx`.
+- [X] T021 Connect the "yumm_count" functionality in `Dish.tsx` to a state management solution to prevent multiple votes in the same session.
 - [ ] T022 Implement a service in `frontend/src/services/google-sheets.ts` to update the `yumm_count` for a dish in the Google Sheet.
 - [ ] T023 Integrate the `yumm_count` update service into `Dish.tsx` to persist the count to the Google Sheet on vote.
 
