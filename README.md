@@ -22,10 +22,10 @@ This project requires three separate sheets (tabs) within a single Google Sheets
 
 1.  Create a new Google Sheet.
 2.  Create three tabs at the bottom and name them exactly: `vendor`, `items`, `reviews`.
-3.  **Copy the headers** from the sample CSV files located in the `/samples` directory of this repository into your sheets.
-    *   [samples/vendor.csv](samples/vendor.csv)
-    *   [samples/items.csv](samples/items.csv)
-    *   [samples/reviews.csv](samples/reviews.csv)
+3.  **Copy the headers** from the sample CSV files located in the `/public/samples` directory of this repository into your sheets.
+    *   [public/samples/vendor.csv](public/samples/vendor.csv)
+    *   [public/samples/items.csv](public/samples/items.csv)
+    *   [public/samples/reviews.csv](public/samples/reviews.csv)
 4.  Fill in your own data under the headers.
 
 **B. Publish Your Sheets to the Web**
