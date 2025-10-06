@@ -1,0 +1,4 @@
+type,content,background_color,created_at
+"text","Get 10% off on all pizzas!","blue","2025-10-06T10:00:00Z"
+"video","https://example.com/promo.mp4","","2025-10-06T11:00:00Z"
+"gif","https://example.com/promo.gif","","2025-10-06T12:00:00Z"

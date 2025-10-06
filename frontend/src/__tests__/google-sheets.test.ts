@@ -1,19 +1,21 @@
-import { getVendorData, getMenuData } from '@/services/google-sheets';
+import { getGoogleSheetData } from '../src/services/google-sheets';
 
-global.fetch = jest.fn(() =>
-  Promise.resolve({
-    text: () => Promise.resolve('id,store_name\nvendor1,Test Vendor'),
-  })
-) as jest.Mock;
-
-describe('google-sheets service', () => {
-  it('should fetch vendor data', async () => {
-    const vendor = await getVendorData('vendor1');
-    expect(vendor).toEqual({ id: 'vendor1', store_name: 'Test Vendor' });
+describe('getGoogleSheetData', () => {
+  it('should fetch data from the store sheet', async () => {
+    const data = await getGoogleSheetData('store');
+    expect(data).toBeDefined();
+    expect(data.length).toBeGreaterThan(0);
   });
 
-  it('should fetch menu data', async () => {
-    const menu = await getMenuData('vendor1');
-    expect(menu).toEqual([]); // The mock data is not complete
+  it('should fetch data from the dishes sheet', async () => {
+    const data = await getGoogleSheetData('dishes');
+    expect(data).toBeDefined();
+    expect(data.length).toBeGreaterThan(0);
+  });
+
+  it('should fetch data from the statuses sheet', async () => {
+    const data = await getGoogleSheetData('statuses');
+    expect(data).toBeDefined();
+    expect(data.length).toBeGreaterThan(0);
   });
 });

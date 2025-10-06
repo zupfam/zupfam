@@ -1,0 +1,4 @@
+dish_name,description,price,image_url,video_url,category,is_available,yumm_count,calorie_count,diet
+"Pizza","A delicious pizza",12.99,"https://example.com/pizza.jpg","https://example.com/pizza.mp4","Main",true,100,500,"veg"
+"Pasta","A tasty pasta",10.99,"https://example.com/pasta.jpg","https://example.com/pasta.mp4","Main",true,80,400,"veg"
+"Salad","A healthy salad",7.99,"https://example.com/salad.jpg","https://example.com/salad.mp4","Side",true,50,200,"vegan"
