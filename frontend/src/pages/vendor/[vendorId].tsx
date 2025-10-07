@@ -1,41 +1,20 @@
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { GetServerSideProps } from 'next';
 import { Vendor } from '@/models/vendor';
 import { Dish } from '@/models/dish';
 import { Status } from '@/models/status';
 import { getVendorData, getMenuData, getStatusesData } from '@/services/google-sheets';
 import DishList from '@/components/DishList';
-import Skeleton from '@/components/Skeleton';
 import StatusView from '@/components/StatusView';
 import VendorProfile from '@/components/VendorProfile';
 
-const VendorPage = () => {
-  const router = useRouter();
-  const { vendorId } = router.query;
-  const [vendor, setVendor] = useState<Vendor | null>(null);
-  const [menu, setMenu] = useState<Dish[]>([]);
-  const [statuses, setStatuses] = useState<Status[]>([]);
-  const [loading, setLoading] = useState(true);
+interface VendorPageProps {
+  vendor: Vendor | null;
+  menu: Dish[];
+  statuses: Status[];
+  vendorId: string;
+}
 
-  useEffect(() => {
-    if (vendorId) {
-      Promise.all([
-        getVendorData(vendorId as string),
-        getMenuData(vendorId as string),
-        getStatusesData(vendorId as string),
-      ]).then(([vendorData, menuData, statusesData]) => {
-        setVendor(vendorData);
-        setMenu(menuData);
-        setStatuses(statusesData);
-        setLoading(false);
-      });
-    }
-  }, [vendorId]);
-
-  if (loading) {
-    return <Skeleton />;
-  }
-
+const VendorPage = ({ vendor, menu, statuses, vendorId }: VendorPageProps) => {
   if (!vendor) {
     return <div>Vendor not found</div>;
   }
@@ -46,9 +25,37 @@ const VendorPage = () => {
       {statuses.map((status) => (
         <StatusView key={status.id} status={status} />
       ))}
-      <DishList dishes={menu} />
+      <DishList dishes={menu} vendorId={vendorId} />
     </div>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const vendorId = context.params?.vendorId as string;
+
+  if (!vendorId) {
+    return { notFound: true };
+  }
+
+  try {
+    const [vendorData, menuData, statusesData] = await Promise.all([
+      getVendorData(vendorId),
+      getMenuData(vendorId),
+      getStatusesData(vendorId),
+    ]);
+
+    return {
+      props: {
+        vendor: vendorData || null,
+        menu: menuData || [],
+        statuses: statusesData || [],
+        vendorId: vendorId,
+      },
+    };
+  } catch (error) {
+    console.error(`Failed to fetch data for vendor ${vendorId}:`, error);
+    return { notFound: true };
+  }
 };
 
 export default VendorPage;

@@ -1,9 +1,12 @@
-import {
-  GoogleSpreadsheet,
-  GoogleSpreadsheetWorksheet,
-} from 'google-spreadsheet';
+import { GoogleSpreadsheet } from 'google-spreadsheet';
 import { JWT } from 'google-auth-library';
-import vendorRoutes from '../../vendor-routes.json';
+import vendorRoutesData from '../../vendor-routes.json';
+
+interface VendorRoutes {
+  [key: string]: string;
+}
+
+const vendorRoutes: VendorRoutes = vendorRoutesData;
 
 const serviceAccountAuth = new JWT({
   email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
@@ -38,8 +41,11 @@ export async function getStatusesData(vendorId: string) {
   return getGoogleSheetData('statuses', vendorId);
 }
 
-export async function updateYummCount(dishName: string, newCount: number) {
-  const vendorId = 'vendor1';
+export async function updateYummCount(
+  dishName: string,
+  newCount: number,
+  vendorId: string
+) {
   const doc = new GoogleSpreadsheet(
     vendorRoutes[vendorId],
     serviceAccountAuth

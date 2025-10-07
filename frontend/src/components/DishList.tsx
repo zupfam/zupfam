@@ -1,27 +1,22 @@
-import { FixedSizeList as List } from 'react-window';
 import { Dish } from '@/models/dish';
 import DishComponent from './Dish';
+import { CardStack } from './ui/card-stack';
 
 interface DishListProps {
   dishes: Dish[];
+  vendorId: string;
 }
 
-const DishList = ({ dishes }: DishListProps) => {
-  const Row = ({ index, style }: { index: number; style: React.CSSProperties }) => (
-    <div style={style}>
-      <DishComponent dish={dishes[index]} />
-    </div>
-  );
+const DishList = ({ dishes, vendorId }: DishListProps) => {
+  const cards = dishes.map((dish, index) => ({
+    id: index,
+    content: <DishComponent dish={dish} vendorId={vendorId} />,
+  }));
 
   return (
-    <List
-      height={800}
-      itemCount={dishes.length}
-      itemSize={250}
-      width={'100%'}
-    >
-      {Row}
-    </List>
+    <div className="flex items-center justify-center w-full">
+      <CardStack items={cards} />
+    </div>
   );
 };
 

@@ -1,21 +1,23 @@
+import Image from 'next/image';
 import { Dish } from '@/models/dish';
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
-import { updateYummCount } from '@/services/google-sheets';
-
-const votedDishes = new Set<string>();
+import { Heart, Share2 } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 interface DishProps {
   dish: Dish;
+  vendorId: string;
 }
 
-const DishComponent = ({ dish }: DishProps) => {
+const DishComponent = ({ dish, vendorId }: DishProps) => {
   const [imageError, setImageError] = useState(false);
   const [yummCount, setYummCount] = useState(dish.yumm_count);
   const [isYummed, setIsYummed] = useState(false);
 
   useEffect(() => {
-    setIsYummed(votedDishes.has(dish.dish_name));
+    const voted = sessionStorage.getItem(`voted_${dish.dish_name}`);
+    setIsYummed(!!voted);
   }, [dish.dish_name]);
 
   const handleShare = () => {
@@ -23,10 +25,10 @@ const DishComponent = ({ dish }: DishProps) => {
       navigator.share({
         title: dish.dish_name,
         text: dish.description,
-        url: window.location.href, // This should be the dish-specific URL
+        url: window.location.href,
       });
     } else {
-      navigator.clipboard.writeText(window.location.href); // Fallback for browsers that don't support Web Share API
+      navigator.clipboard.writeText(window.location.href);
       alert('Link copied to clipboard!');
     }
   };
@@ -35,47 +37,89 @@ const DishComponent = ({ dish }: DishProps) => {
     setImageError(true);
   };
 
-  const handleYummClick = () => {
+  const handleYummClick = async () => {
     if (!isYummed) {
-      votedDishes.add(dish.dish_name);
+      sessionStorage.setItem(`voted_${dish.dish_name}`, 'true');
       setIsYummed(true);
       const newCount = yummCount + 1;
       setYummCount(newCount);
-      updateYummCount(dish.dish_name, newCount).catch(() => {
-        // Revert on error
-        votedDishes.delete(dish.dish_name);
+
+      try {
+        const response = await fetch('/api/update-yumm-count', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            dishName: dish.dish_name,
+            newCount,
+            vendorId,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to update yumm count');
+        }
+      } catch {
+        sessionStorage.removeItem(`voted_${dish.dish_name}`);
         setYummCount(yummCount);
         setIsYummed(false);
-      });
+      }
     }
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-    >
-      <h2>{dish.dish_name}</h2>
-      <p>{dish.description}</p>
-      <p>{dish.price}</p>
-      {dish.video_url ? (
-        <video src={dish.video_url} autoPlay loop muted playsInline />
-      ) : (
-        dish.image_url && !imageError && (
-          <img src={dish.image_url} alt={dish.dish_name} onError={handleImageError} />
-        )
-      )}
-      {imageError && <div>Image not available</div>}
-      <button onClick={handleShare}>Share</button>
-      <motion.button
-        onClick={handleYummClick}
-        whileTap={{ scale: 1.2 }}
-        disabled={isYummed}
-      >
-        Yumm! {yummCount}
-      </motion.button>
-    </motion.div>
+    <div className="flex flex-col h-full rounded-xl overflow-hidden">
+      <div className="relative w-full aspect-square">
+        {dish.video_url ? (
+          <video
+            src={dish.video_url}
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover"
+          />
+        ) : dish.image_url && !imageError ? (
+          <Image
+            src={dish.image_url}
+            alt={dish.dish_name}
+            onError={handleImageError}
+            className="w-full h-full object-cover"
+            fill
+          />
+        ) : (
+          <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+            <span className="text-gray-500">Image not available</span>
+          </div>
+        )}
+      </div>
+      <div className="p-4 flex flex-col flex-grow">
+        <div className="flex justify-between items-start">
+          <h2 className="text-lg font-bold">{dish.dish_name}</h2>
+          <p className="text-lg font-semibold">{dish.price}</p>
+        </div>
+        <p className="text-sm text-gray-600 mt-1 flex-grow">{dish.description}</p>
+        <div className="flex justify-between items-center mt-4">
+          <motion.button
+            onClick={handleYummClick}
+            whileTap={{ scale: 1.2 }}
+            className={cn(
+              'flex items-center gap-2 text-red-500 disabled:text-gray-400',
+              isYummed && 'text-red-500'
+            )}
+            disabled={isYummed}
+            data-testid="yumm-button"
+          >
+            <Heart fill={isYummed ? 'currentColor' : 'none'} />
+            <span>{yummCount}</span>
+          </motion.button>
+          <button onClick={handleShare} className="text-gray-500">
+            <Share2 />
+          </button>
+        </div>
+      </div>
+    </div>
   );
 };
 

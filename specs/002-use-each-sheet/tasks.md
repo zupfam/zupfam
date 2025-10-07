@@ -32,15 +32,15 @@
 - [X] T019 Integrate the `VendorProfile.tsx` component into `frontend/src/pages/vendor/[vendorId].tsx`.
 - [X] T020 Integrate the `StatusView.tsx` component into `frontend/src/pages/vendor/[vendorId].tsx`.
 - [X] T021 Connect the "yumm_count" functionality in `Dish.tsx` to a state management solution to prevent multiple votes in the same session.
-- [ ] T022 Implement a service in `frontend/src/services/google-sheets.ts` to update the `yumm_count` for a dish in the Google Sheet.
-- [ ] T023 Integrate the `yumm_count` update service into `Dish.tsx` to persist the count to the Google Sheet on vote.
+- [X] T022 Implement a service in `frontend/src/services/google-sheets.ts` to update the `yumm_count` for a dish in the Google Sheet.
+- [X] T023 Integrate the `yumm_count` update service into `Dish.tsx` to persist the count to the Google Sheet on vote.
 
 ## Phase 3.5: Polish
-- [ ] T024 [P] Enhance the UI of the vendor page using components from the selected UI library (from T006).
-- [ ] T025 [P] Add animations and transitions using Framer Motion to improve the user experience.
-- [ ] T026 [P] Write comprehensive unit tests for all new components and services.
-- [ ] T027 [P] Perform a final review of the UI to ensure it meets the "Instagram-like" and "mobile-first" design principles.
-- [ ] T028 Run a full build and test cycle to ensure there are no regressions.
+- [X] T024 [P] Enhance the UI of the vendor page using components from the selected UI library (from T006).
+- [X] T025 [P] Add animations and transitions using Framer Motion to improve the user experience.
+- [X] T026 [P] Write comprehensive unit tests for all new components and services.
+- [X] T027 [P] Perform a final review of the UI to ensure it meets the "Instagram-like" and "mobile-first" design principles.
+- [X] T028 Run a full build and test cycle to ensure there are no regressions.
 
 ## Dependencies
 - Tests (T007-T010) before implementation (T011-T018)
